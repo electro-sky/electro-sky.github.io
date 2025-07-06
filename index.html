@@ -760,9 +760,7 @@
                 llama8bData.forEach((row, index) => {
                     try {
                         const configLabel = createConfigLabel(row, headers);
-                        const topKIndex = headers.indexOf('Top K');
-                        const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
-                        const combinedRow = ['🐪 LLaMA 8B', configLabel, topK, ...row];
+                        const combinedRow = ['🐪 LLaMA 8B', configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing 8B row ${index}:`, error, row);
@@ -772,9 +770,7 @@
                 llama70bData.forEach((row, index) => {
                     try {
                         const configLabel = createConfigLabel(row, headers);
-                        const topKIndex = headers.indexOf('Top K');
-                        const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
-                        const combinedRow = ['🐪🐪 LLaMA 70B', configLabel, topK, ...row];
+                        const combinedRow = ['🐪🐪 LLaMA 70B', configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing 70B row ${index}:`, error, row);
@@ -821,10 +817,8 @@
                 data.forEach((row, index) => {
                     try {
                         const configLabel = createConfigLabel(row, headers);
-                        const topKIndex = headers.indexOf('Top K');
-                        const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
                         const modelLabel = row[0] === 'LLAMA8B' ? '🐪 LLaMA 8B' : '🐪🐪 LLaMA 70B';
-                        const combinedRow = [modelLabel, configLabel, topK, ...row];
+                        const combinedRow = [modelLabel, configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing Frames row ${index}:`, error, row);
@@ -871,10 +865,8 @@
                 data.forEach((row, index) => {
                     try {
                         const configLabel = createConfigLabel(row, headers);
-                        const topKIndex = headers.indexOf('Top K');
-                        const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
                         const modelLabel = row[0] === 'LLAMA8B' ? '🐪 LLaMA 8B' : '🐪🐪 LLaMA 70B';
-                        const combinedRow = [modelLabel, configLabel, topK, ...row];
+                        const combinedRow = [modelLabel, configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing TriviaQA row ${index}:`, error, row);
@@ -948,12 +940,8 @@
                         // Config label
                         td.className = 'config-cell';
                         td.textContent = cell;
-                    } else if (index === 2) {
-                        // Top K
-                        td.className = 'topk-cell';
-                        td.textContent = cell;
                     } else {
-                        // Value cell
+                        // Value cell (index >= 2)
                         td.className = 'value-cell';
                         const headerName = combinedHeaders[index];
                         
@@ -1404,7 +1392,7 @@
             
             // Create header row
             const headerRow = document.createElement('tr');
-            const combinedHeaders = ['Model', 'Embedding', 'Top K', ...datasets.frames.headers];
+            const combinedHeaders = ['Model', 'Embedding', ...datasets.frames.headers];
             
             combinedHeaders.forEach((header, index) => {
                 const th = document.createElement('th');
@@ -1441,12 +1429,8 @@
                         // Config label
                         td.className = 'config-cell';
                         td.textContent = cell;
-                    } else if (index === 2) {
-                        // Top K
-                        td.className = 'topk-cell';
-                        td.textContent = cell;
                     } else {
-                        // Value cell
+                        // Value cell (index >= 2)
                         td.className = 'value-cell';
                         const headerName = combinedHeaders[index];
                         
@@ -1775,7 +1759,7 @@
             
             // Create header row
             const headerRow = document.createElement('tr');
-            const combinedHeaders = ['Model', 'Embedding', 'Top K', ...datasets.triviaqa.headers];
+            const combinedHeaders = ['Model', 'Embedding', ...datasets.triviaqa.headers];
             
             combinedHeaders.forEach((header, index) => {
                 const th = document.createElement('th');
@@ -1812,12 +1796,8 @@
                         // Config label
                         td.className = 'config-cell';
                         td.textContent = cell;
-                    } else if (index === 2) {
-                        // Top K
-                        td.className = 'topk-cell';
-                        td.textContent = cell;
                     } else {
-                        // Value cell
+                        // Value cell (index >= 2)
                         td.className = 'value-cell';
                         const headerName = combinedHeaders[index];
                         
