@@ -115,12 +115,6 @@
             z-index: 20;
         }
 
-        th:nth-child(3) {
-            position: sticky;
-            left: 240px;
-            z-index: 20;
-        }
-
         th:hover {
             background: #edf2f7;
         }
@@ -158,16 +152,6 @@
             left: 120px;
             z-index: 10;
             min-width: 120px;
-        }
-
-        .topk-cell {
-            font-weight: 600;
-            text-align: center !important;
-            background: #fafafa;
-            position: sticky;
-            left: 240px;
-            z-index: 10;
-            min-width: 60px;
         }
 
         .value-cell {
@@ -762,7 +746,7 @@
                         const configLabel = createConfigLabel(row, headers);
                         const topKIndex = headers.indexOf('Top K');
                         const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
-                        const combinedRow = ['🐪 LLaMA 8B', configLabel, topK, ...row];
+                        const combinedRow = ['🐪 LLaMA 8B', configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing 8B row ${index}:`, error, row);
@@ -774,7 +758,7 @@
                         const configLabel = createConfigLabel(row, headers);
                         const topKIndex = headers.indexOf('Top K');
                         const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
-                        const combinedRow = ['🐪🐪 LLaMA 70B', configLabel, topK, ...row];
+                        const combinedRow = ['🐪🐪 LLaMA 70B', configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing 70B row ${index}:`, error, row);
@@ -824,7 +808,7 @@
                         const topKIndex = headers.indexOf('Top K');
                         const topK = topKIndex !== -1 ? row[topKIndex] : 'N/A';
                         const modelLabel = row[0] === 'LLAMA8B' ? '🐪 LLaMA 8B' : '🐪🐪 LLaMA 70B';
-                        const combinedRow = [modelLabel, configLabel, topK, ...row];
+                        const combinedRow = [modelLabel, configLabel, ...row];
                         combinedData.push(combinedRow);
                     } catch (error) {
                         console.error(`Error processing Frames row ${index}:`, error, row);
