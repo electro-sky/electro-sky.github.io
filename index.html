@@ -938,20 +938,20 @@
                     if (index === 0) {
                         // Model label
                         td.className = 'model-label';
-                        if (cell.includes('8B')) {
+                        if (cell && cell.includes('8B')) {
                             td.className += ' llama8b-label';
-                        } else if (cell.includes('70B')) {
+                        } else if (cell && cell.includes('70B')) {
                             td.className += ' llama70b-label';
                         }
-                        td.textContent = cell;
+                        td.textContent = cell || '';
                     } else if (index === 1) {
                         // Config label
                         td.className = 'config-cell';
-                        td.textContent = cell;
+                        td.textContent = cell || '';
                     } else if (index === 2) {
                         // Top K
                         td.className = 'topk-cell';
-                        td.textContent = cell;
+                        td.textContent = cell || '';
                     } else {
                         // Value cell
                         td.className = 'value-cell';
@@ -960,15 +960,15 @@
                         // Format numeric values
                         if (cell && !isNaN(parseFloat(cell))) {
                             const value = parseFloat(cell);
-                            if (headerName.includes('Accuracy') || headerName.includes('Recall')) {
+                            if (headerName && headerName.includes('Accuracy') || headerName && headerName.includes('Recall')) {
                                 td.textContent = (value * 100).toFixed(1) + '%';
-                            } else if (headerName.includes('Latency') || headerName.includes('Energy')) {
+                            } else if (headerName && headerName.includes('Latency') || headerName && headerName.includes('Energy')) {
                                 td.textContent = value.toFixed(3);
                             } else {
                                 td.textContent = value.toFixed(2);
                             }
                         } else {
-                            td.textContent = cell;
+                            td.textContent = cell || '';
                         }
                         
                         // No highlighting needed
@@ -1431,20 +1431,20 @@
                     if (index === 0) {
                         // Model label
                         td.className = 'model-label';
-                        if (cell.includes('8B')) {
+                        if (cell && cell.includes('8B')) {
                             td.className += ' llama8b-label';
-                        } else if (cell.includes('70B')) {
+                        } else if (cell && cell.includes('70B')) {
                             td.className += ' llama70b-label';
                         }
-                        td.textContent = cell;
+                        td.textContent = cell || "";
                     } else if (index === 1) {
                         // Config label
                         td.className = 'config-cell';
-                        td.textContent = cell;
+                        td.textContent = cell || "";
                     } else if (index === 2) {
                         // Top K
                         td.className = 'topk-cell';
-                        td.textContent = cell;
+                        td.textContent = cell || "";
                     } else {
                         // Value cell
                         td.className = 'value-cell';
@@ -1453,15 +1453,15 @@
                         // Format numeric values
                         if (cell && !isNaN(parseFloat(cell))) {
                             const value = parseFloat(cell);
-                            if (headerName.includes('Accuracy') || headerName.includes('Recall')) {
+                            if (headerName && headerName.includes('Accuracy') || headerName.includes('Recall')) {
                                 td.textContent = (value * 100).toFixed(1) + '%';
-                            } else if (headerName.includes('Latency') || headerName.includes('Energy')) {
+                            } else if (headerName && headerName.includes('Latency') || headerName.includes('Energy')) {
                                 td.textContent = value.toFixed(3);
                             } else {
                                 td.textContent = value.toFixed(2);
                             }
                         } else {
-                            td.textContent = cell;
+                            td.textContent = cell || "";
                         }
                     }
                     
@@ -1802,20 +1802,20 @@
                     if (index === 0) {
                         // Model label
                         td.className = 'model-label';
-                        if (cell.includes('8B')) {
+                        if (cell && cell.includes('8B')) {
                             td.className += ' llama8b-label';
-                        } else if (cell.includes('70B')) {
+                        } else if (cell && cell.includes('70B')) {
                             td.className += ' llama70b-label';
                         }
-                        td.textContent = cell;
+                        td.textContent = cell || "";
                     } else if (index === 1) {
                         // Config label
                         td.className = 'config-cell';
-                        td.textContent = cell;
+                        td.textContent = cell || "";
                     } else if (index === 2) {
                         // Top K
                         td.className = 'topk-cell';
-                        td.textContent = cell;
+                        td.textContent = cell || "";
                     } else {
                         // Value cell
                         td.className = 'value-cell';
@@ -1824,15 +1824,15 @@
                         // Format numeric values
                         if (cell && !isNaN(parseFloat(cell))) {
                             const value = parseFloat(cell);
-                            if (headerName.includes('Accuracy') || headerName.includes('Recall')) {
+                            if (headerName && headerName.includes('Accuracy') || headerName.includes('Recall')) {
                                 td.textContent = (value * 100).toFixed(1) + '%';
-                            } else if (headerName.includes('Latency') || headerName.includes('Energy')) {
+                            } else if (headerName && headerName.includes('Latency') || headerName.includes('Energy')) {
                                 td.textContent = value.toFixed(3);
                             } else {
                                 td.textContent = value.toFixed(2);
                             }
                         } else {
-                            td.textContent = cell;
+                            td.textContent = cell || "";
                         }
                     }
                     
