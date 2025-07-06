@@ -943,7 +943,13 @@
                     if (!removeIndices.includes(idx)) {
                         const td = document.createElement('td');
                         td.className = 'value-cell';
-                        td.textContent = cell || '';
+                        // Format numeric values to max 4 decimals
+                        if (cell && !isNaN(parseFloat(cell))) {
+                            const value = parseFloat(cell);
+                            td.textContent = value % 1 === 0 ? value : value.toFixed(4);
+                        } else {
+                            td.textContent = cell || '';
+                        }
                         tr.appendChild(td);
                     }
                 });
