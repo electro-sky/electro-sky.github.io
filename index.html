@@ -139,7 +139,7 @@
             color: white;
         }
 
-        .image.pngb-label {
+        .llama70b-label {
             background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
             color: white;
         }
@@ -893,10 +893,15 @@
             thead.innerHTML = '';
             tbody.innerHTML = '';
             
-            // Create header row
+            // Filter out unwanted columns
+            const columnsToRemove = ['Generation Model', 'Embedding Model'];
+            const filteredHeaders = datasets.financebench.headers.filter(
+                h => !columnsToRemove.includes(h)
+            );
+            const combinedHeaders = ['Model', 'Embedding', ...filteredHeaders];
+
+            // Build header row
             const headerRow = document.createElement('tr');
-            const combinedHeaders = ['Model', 'Embedding', ...datasets.financebench.headers];
-            
             combinedHeaders.forEach((header, index) => {
                 const th = document.createElement('th');
                 th.onclick = () => sortTable(index);
@@ -904,63 +909,44 @@
                 headerRow.appendChild(th);
             });
             thead.appendChild(headerRow);
-            
-            // Create data rows
+
+            // Find indices to skip in the original data rows (relative to datasets.financebench.headers)
+            const removeIndices = columnsToRemove.map(col => datasets.financebench.headers.indexOf(col));
+
+            // Build data rows
             datasets.financebench.combinedData.forEach(row => {
                 const tr = document.createElement('tr');
-                
-                // Apply background color based on model type
+                // Restore row coloring based on model type
                 if (row[0] && row[0].includes('8B')) {
                     tr.style.backgroundColor = '#fdf2f8'; // Light pink for LLaMA 8B
                 } else if (row[0] && row[0].includes('70B')) {
                     tr.style.backgroundColor = '#f0fdfa'; // Light teal for LLaMA 70B
                 }
-                
-                row.forEach((cell, index) => {
+                // Always add Model and Embedding
+                [0, 1].forEach(i => {
                     const td = document.createElement('td');
-                    
-                    if (index === 0) {
-                        // Model label
+                    if (i === 0) {
                         td.className = 'model-label';
-                        if (cell && cell.includes('8B')) {
+                        if (row[0] && row[0].includes('8B')) {
                             td.className += ' llama8b-label';
-                        } else if (cell && cell.includes('70B')) {
+                        } else if (row[0] && row[0].includes('70B')) {
                             td.className += ' llama70b-label';
                         }
-                        td.textContent = cell || '';
-                    } else if (index === 1) {
-                        // Config label
-                        td.className = 'config-cell';
-                        td.textContent = cell || '';
-                    } else if (index === 2) {
-                        // Top K
-                        td.className = 'topk-cell';
-                        td.textContent = cell || '';
                     } else {
-                        // Value cell
-                        td.className = 'value-cell';
-                        const headerName = combinedHeaders[index];
-                        
-                        // Format numeric values
-                        if (cell && !isNaN(parseFloat(cell))) {
-                            const value = parseFloat(cell);
-                            if (headerName && headerName.includes('Accuracy') || headerName && headerName.includes('Recall')) {
-                                td.textContent = (value * 100).toFixed(1) + '%';
-                            } else if (headerName && headerName.includes('Latency') || headerName && headerName.includes('Energy')) {
-                                td.textContent = value.toFixed(3);
-                            } else {
-                                td.textContent = value.toFixed(2);
-                            }
-                        } else {
-                            td.textContent = cell || '';
-                        }
-                        
-                        // No highlighting needed
+                        td.className = 'config-cell';
                     }
-                    
+                    td.textContent = row[i] || '';
                     tr.appendChild(td);
                 });
-                
+                // Add the rest, skipping unwanted columns
+                row.slice(2).forEach((cell, idx) => {
+                    if (!removeIndices.includes(idx)) {
+                        const td = document.createElement('td');
+                        td.className = 'value-cell';
+                        td.textContent = cell || '';
+                        tr.appendChild(td);
+                    }
+                });
                 tbody.appendChild(tr);
             });
         }
