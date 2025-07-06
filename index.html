@@ -943,10 +943,10 @@
                     if (!removeIndices.includes(idx)) {
                         const td = document.createElement('td');
                         td.className = 'value-cell';
-                        // Format numeric values to max 4 decimals
-                        if (cell && !isNaN(parseFloat(cell))) {
-                            const value = parseFloat(cell);
-                            td.textContent = value % 1 === 0 ? value : value.toFixed(4);
+                        // Improved: Format all numeric values to max 4 decimals, trim trailing zeros
+                        if (cell !== undefined && cell !== null && cell !== '' && !isNaN(Number(cell))) {
+                            const value = Number(cell);
+                            td.textContent = value % 1 === 0 ? value : parseFloat(value.toFixed(4)).toString();
                         } else {
                             td.textContent = cell || '';
                         }
